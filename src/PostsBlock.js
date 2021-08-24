@@ -5,35 +5,45 @@ import { data } from './db';
 import Post from './Post';
 
 
-const PostsBlock = (props) => {
+const PostsBlock = ({ date }) => {
 
+
+
+    const colors = [
+        "#8391B5",
+        "#290D11",
+        "#0C9ABC",
+        "#0E17F4",
+        "#97BC89",
+        "#6B48F7",
+        "#584A35",
+        "#669F15",
+        "#15FC93",
+        "#7C8329",
+        "#27D792",
+        "#4786C8",
+    ];
+
+
+
+    // posts and count state
     const [posts, setPosts] = useState(data);
     const [count, setCount] = useState(3);
+    const [color, setColor] = useState(colors)
 
+
+    // count handler function
     const loadHandler = () => {
         setCount((prevState) => prevState + 3);
     }
-
-    const generateRandomColor = () => {
-        let letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
-    let randomColor = generateRandomColor();
-
-    const [color, setColor] = useState(randomColor)
 
 
     return (
         <div className="container">
             <div className="row">
                 {
-                    posts.slice(0, count).map((item, index) => (
-                        <Post item={item} key={index + color} color={color} />
+                    posts.slice(0, count).map((item, index,) => (
+                        <Post item={item} key={index} color={color[index]} date={item.date} />
                     ))
                 }
             </div>
